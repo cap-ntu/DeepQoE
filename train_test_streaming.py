@@ -16,10 +16,9 @@ import torch.optim as optim
 import torch.utils.data as data_utils
 from DeepQoE.nets import *
 from DeepQoE.config import cfg, parse_arguments
-from scripts.generate_pretrained_models import generate_streaming_data
+from scripts.generate_pretrained_models import generate_streaming_data, show_results
 from DeepQoE.data_loader import QoENFLXDataset
-from scipy.stats import spearmanr as sr
-import matplotlib.pyplot as plt
+
 
 
 def main(args):
@@ -94,38 +93,7 @@ def test(test_loader, model):
     return output
 
 
-def show_results(X_test, X_test_before_scaling, y_test, regressor_name, feature_labels, answer):
 
-    if cfg.QUALITY_MODEL + "_" + cfg.POOLING_TYPE in feature_labels:
-        position_vqa = feature_labels.index(cfg.QUALITY_MODEL + "_" + cfg.POOLING_TYPE)
-
-    plt.figure()
-    ax1 = plt.subplot(1, 1, 1)
-    plt.title("before: " + format(sr(y_test, X_test[:, position_vqa].reshape(-1, 1))[0], '.4f'))
-    plt.scatter(y_test, X_test_before_scaling[:, position_vqa].reshape(-1, 1))
-    plt.grid()
-    x0, x1 = ax1.get_xlim()
-    y0, y1 = ax1.get_ylim()
-    ax1.set_aspect((x1 - x0) / (y1 - y0))
-    plt.ylabel("predicted QoE")
-    plt.xlabel("MOS")
-    plt.show()
-
-    plt.figure()
-    ax1 = plt.subplot(1, 1, 1)
-    plt.title("after: " + format(sr(y_test, answer.reshape(-1, 1))[0], '.4f'))
-    plt.scatter(y_test, answer.reshape(-1, 1))
-    plt.grid()
-    x0, x1 = ax1.get_xlim()
-    y0, y1 = ax1.get_ylim()
-    ax1.set_aspect((x1 - x0) / (y1 - y0))
-    plt.ylabel("predicted QoE")
-    plt.xlabel("MOS")
-    plt.show()
-
-    print("SROCC before (" + str(cfg.QUALITY_MODEL) + "): " + str(sr(y_test, X_test[:, position_vqa].reshape(-1, 1))[0]))
-    print("SROCC using DeepQoE (" + str(cfg.QUALITY_MODEL) + " + " + regressor_name + "): " + str(
-        sr(y_test, answer.reshape(-1, 1))[0]))
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@
 from __future__ import print_function
 import torch
 import numpy as np
+from scripts.generate_pretrained_models import show_corre
 from scipy.stats.stats import pearsonr
 from scipy.stats import kendalltau
 from scipy.stats import spearmanr
@@ -37,8 +38,9 @@ for sample_batched in test_loader:
     output, _ = model(x_1, x_2, x_3)
 
 y_pred = output.data.cpu().numpy().squeeze()
-print(y)
-print (y_pred)
+print(y, y_pred)
+
+show_corre(y[-9:], y_pred[-9:])
 
 print("Pearson: {}".format(pearsonr(y, y_pred)))
 print("Kendal: {}".format(kendalltau(y, y_pred)))
