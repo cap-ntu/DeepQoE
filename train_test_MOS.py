@@ -34,16 +34,16 @@ def main(args):
         x = data[:, 0:data.shape[1] - 1]
         y = np.array(data[:, -1], np.float)
 
-    # x_train = np.concatenate((x[0:54], x[63:]), axis=0)
-    # y_train = np.concatenate((y[0:54], y[63:]), axis=0)
-    x_train = x[0:63]
-    y_train = y[0:63]
+    # x_train = np.concatenate((x[0:36], x[54:]), axis=0)
+    # y_train = np.concatenate((y[0:36], y[54:]), axis=0)
+    x_train = x[0:54]
+    y_train = y[0:54]
 
-    x_test = x[63:]
-    y_test = y[63:]
+    x_test = x[54:]
+    y_test = y[54:]
 
     train_data = QoEMOSDataset(x_train, y_train)
-    train_loader = data_utils.DataLoader(train_data, batch_size=63, shuffle=False)
+    train_loader = data_utils.DataLoader(train_data, batch_size=54, shuffle=False)
     for epoch in range(args.epochs):
         for batch_idx, sample_batched in enumerate(train_loader):
             pid = os.getpid()
@@ -72,7 +72,7 @@ def main(args):
 
     # test processing
     test_data = QoEMOSDataset(x_test, y_test)
-    test_loader = data_utils.DataLoader(test_data, batch_size=9, shuffle=False)
+    test_loader = data_utils.DataLoader(test_data, batch_size=18, shuffle=False)
     model.eval()
     test_loss = 0
     for sample_batched in test_loader:
