@@ -30,7 +30,7 @@ def main(args):
     if args.model_number == 0:
         model = HybridNN()
     elif args.model_number == 1:
-        model = C3DHybridNN
+        model = C3DHybridNN()
     else:
         model = HybridRR()
     if args.use_gpu and torch.cuda.is_available():
@@ -39,7 +39,7 @@ def main(args):
     print(model)
 
     model.train()
-    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, nesterov=True)
 
     with open(cfg.JND_DATA, 'rb') as f:
         data = pickle.load(f)
@@ -93,7 +93,7 @@ def main(args):
                 print('{}\tTrain Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                     pid, epoch, batch_idx * len(data), len(train_loader.dataset),
                                 100. * batch_idx / len(train_loader), loss.data[0]))
-    torch.save(model.state_dict(), cfg.MODEL_SAVE_TEXT)
+    torch.save(model.state_dict(), cfg.MODEL_SAVE_VIDEO)
 
     # test processing
     test_data = QoEVideoDataset(x_test, y_test)

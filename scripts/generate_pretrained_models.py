@@ -110,7 +110,7 @@ def show_results(X_test, X_test_before_scaling, y_test, regressor_name, feature_
 def show_corre(y_true, y_test):
     plt.figure()
     ax1 = plt.subplot(1, 1, 1)
-    plt.title("Movie SROCC: " + format(sr(y_true, y_test.reshape(-1, 1))[0], '.4f'))
+    plt.title("Sport SROCC: " + format(sr(y_true, y_test.reshape(-1, 1))[0], '.4f'))
     plt.scatter(y_true, y_test.reshape(-1, 1))
     plt.grid()
     x0, x1 = ax1.get_xlim()

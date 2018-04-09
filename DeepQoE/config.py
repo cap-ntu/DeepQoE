@@ -28,7 +28,7 @@ __C.LOG = 'bit'
 
 
 __C.MODEL_SAVE_TEXT = 'models/GloVe/QoE_score.pt'
-__C.MODEL_SAVE_MOS = 'models/GloVe/QoE_MOS_movie.pt'
+__C.MODEL_SAVE_MOS = 'models/GloVe/QoE_MOS_sport.pt'
 __C.MODEL_SAVE_VIDEO = 'models/C3D/QoE_JND.pt'
 
 __C.CLASSIFIER_NAME = ['SVM', 'Decision Tree', 'Random Forest', 'AdaBoost', 'Naive Bayes']

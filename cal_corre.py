@@ -40,7 +40,7 @@ for sample_batched in test_loader:
 y_pred = output.data.cpu().numpy().squeeze()
 print(y, y_pred)
 
-show_corre(y[:18], y_pred[:18])
+show_corre(y[36:54], y_pred[36:54])
 
 print("Pearson: {}".format(pearsonr(y, y_pred)))
 print("Kendal: {}".format(kendalltau(y, y_pred)))

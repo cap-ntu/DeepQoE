@@ -58,18 +58,22 @@ class C3DHybridNN(nn.Module):
         self.layer1_res = nn.Embedding(4, 8)
 
         self.fc1 = nn.Linear(4096, 1024)
-        self.fc2 = nn.Linear(1024, 512)
-        self.fc3 = nn.Linear(512, 4)
+        self.fc2 = nn.Linear(1024, 1024)
+        self.fc3 = nn.Linear(1024, 512)
+        self.fc4 = nn.Linear(512, 4)
 
     def forward(self, x1, x2):
         x_res = self.layer1_res(x2).view(-1, 8)
-        h = torch.cat((self.layer1_content, x_res), 1)
+        h = torch.cat((self.layer1_content(x1), x_res), 1)
+        h = F.tanh(h)
         h = F.tanh(self.fc1(h))
         h = F.dropout(h, p=0.5, training=self.training)
-        fc2 = F.tanh(self.fc2(h))
-        h = F.dropout(fc2, p=0.5, training=self.training)
-        h = F.log_softmax(self.fc3(h))
-        return h, fc2
+        h = F.tanh(self.fc2(h))
+        h = F.dropout(h, p=0.5, training=self.training)
+        fc3 = F.tanh(self.fc3(h))
+        h = F.dropout(fc3, p=0.5, training=self.training)
+        h = F.log_softmax(self.fc4(h))
+        return h, fc3
 
 
 class HybridRR(nn.Module):
