@@ -1,12 +1,1 @@
-###DeepQoE###
-
-##description##
-
-
-##Request##
-
-
-##How to use##
-
-
-##Paper##
+### Please go to [project website](http://zhanghuaizheng.info/DeepQoE/) to find more information.
