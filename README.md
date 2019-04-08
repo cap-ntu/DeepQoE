@@ -1,1 +1,1 @@
-### Please go to [project website](http://zhanghuaizheng.info/DeepQoE/) to find more information.
+### Please go to [project website](https://huaizhengzhang.github.io//DeepQoE/) to find more information.
